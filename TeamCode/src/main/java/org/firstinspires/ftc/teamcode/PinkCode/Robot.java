@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.PinkCode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.internal.vuforia.externalprovider.VuforiaWebcam;
 import org.firstinspires.ftc.teamcode.PinkCode.Subsystems.DriveSystem;
 
 @TeleOp(name = "Telop", group = "Telop")
@@ -13,17 +12,10 @@ public class Robot extends OpMode {
     @Override
     public void init() {
         drive = new DriveSystem(hardwareMap, telemetry);
-
-        try {
-            drive.hwmap.Init();
-        } catch (Exception e) {
-            telemetry.addData("[ERROR]", e.getCause() + " : " +  e.getMessage());
-            telemetry.update();
-        }
     }
 
     @Override
     public void loop() {
-        drive.SafeTowerDrive(gamepad1.left_stick_y);
+        drive.BaseDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
     }
 }

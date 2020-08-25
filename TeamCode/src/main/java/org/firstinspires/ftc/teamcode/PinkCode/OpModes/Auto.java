@@ -7,13 +7,14 @@ import org.firstinspires.ftc.teamcode.PinkCode.Subsystems.DriveSystem;
 //@Autonomous(name = "Auto", group = "Auto")
 public class Auto extends OpMode {
     private DriveSystem driveSystem = null;
+    private int SKYSTONES_PLACED = 0;
     private Stages Stage = Stages.INIT;
 
     private enum Stages {
         INIT,
-        STAGETwo,
-        STAGEThree,
-        STOP
+        GET_SKYSTONE,
+        MOVE_TO_FOUNDATION,
+        PLACE_SKYSTONE
     }
 
     @Override
@@ -24,44 +25,20 @@ public class Auto extends OpMode {
 
     @Override
     public void loop() {
-        try {
-            switch (Stage) {
-                case INIT:
-                    telemetry.addData("Stage", "INIT");
-                    telemetry.update();
+        switch (Stage) {
+            case INIT:
+//                driveSystem.BaseDrive(1.0, 1.0, 0);
+                break;
 
-                    for (int i = 0; i != 1000; i++) {
-//                        driveSystem.Drive(false, false, 1.0, 1.0, 1.0, 1.0);
-                    }
+            case GET_SKYSTONE:
+                telemetry.addData("Function", "Not Finished GET_SKYSTONE");
+                telemetry.update();
+                break;
 
-                    Stage = Stages.STAGETwo;
-                    break;
 
-                case STAGETwo:
-                    telemetry.addData("Stage", "Stage Two");
-                    telemetry.update();
-
-                    for (int i = 0; i != 1000; i++) {
-//                        driveSystem.Drive(false, false, 1.0, -1.0, 1.0, -1.0);
-                    }
-
-                    Stage = Stages.STOP;
-                    break;
-
-                case STOP:
-                    telemetry.addData("Status", "Stopping");
-                    telemetry.update();
-
-                    return;
-
-                default:
-                    telemetry.addData("[STAGE ERROR]", "Stage Not Found!");
-                    telemetry.update();
-                    break;
-            }
-        } catch (Exception e) {
-            telemetry.addData("[ERROR]", e.getMessage());
-            telemetry.update();
+            case MOVE_TO_FOUNDATION:
+                telemetry.addData("Function", "Not Finished MOVE_TO_FOUNDDATION");
+                break;
         }
     }
 

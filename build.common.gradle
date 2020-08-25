@@ -42,6 +42,8 @@ android {
         minSdkVersion 24
         targetSdkVersion 28
         multiDexEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                'proguard-rules.pro'
 
         /**
          * We keep the versionCode and versionName of robot controller applications in sync with
