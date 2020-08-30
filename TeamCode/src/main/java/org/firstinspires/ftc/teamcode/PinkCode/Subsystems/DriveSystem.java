@@ -69,57 +69,57 @@ public class DriveSystem {
             // 1120
             // if gamepad left_stick_y = -1 tower up
 
-//            hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//
-//            hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//            hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//
-//            double diameter = 111.6584;
-//            double circumference = Math.PI * diameter;
-//            double rotNeeded = 18 / circumference;
-//            int encoderDivingTarget = (int) (rotNeeded * 1120);
-//
-//            hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//            hwmap.dcMotor_tower_left.setTargetPosition(999);
-//            hwmap.dcMotor_tower_right.setTargetPosition(999);
-//
-//            UnsafeTowerDrive(1.0, 1.0);
+            hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            double diameter = 111.6584;
+            double circumference = Math.PI * diameter;
+            double rotNeeded = 18 / circumference;
+            int encoderDivingTarget = (int) (rotNeeded * 1120);
+
+            hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            hwmap.dcMotor_tower_left.setTargetPosition(999);
+            hwmap.dcMotor_tower_right.setTargetPosition(999);
+
+            UnsafeTowerDrive(1.0, 1.0);
 
             telemetry.addData("Tower", "Moving Tower DOWN");
             telemetry.update();
 
             // if gamepad left_stick_y = 1 tower down
-//            if (tower_drive == 1) {
-//                try {
-//                    hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                    hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//
-//                    hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                    hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//
-//                    hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                    hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//                    double diameter = 111.6584;
-//                    double circumference = Math.PI * diameter;
-//                    double rotNeeded = 18 / circumference;
-//                    int encoderDivingTarget = (int) (rotNeeded / 1120);
-//
-//                    hwmap.dcMotor_tower_left.setTargetPosition(encoderDivingTarget);
-//                    hwmap.dcMotor_tower_right.setTargetPosition(encoderDivingTarget);
-//
-//                    UnsafeTowerDrive(-0.6, -0.6);
-//
-//                    telemetry.addData("Tower", "Moving Tower UP");
-//                    telemetry.update();
-//                } catch (Exception e) {
-//                    telemetry.addData("err", e.getCause());
-//                    telemetry.update();
-//                }
-//            }
+            if (tower_drive == 1) {
+                try {
+                    hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+                    hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+                    hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                    diameter = 111.6584;
+                    circumference = Math.PI * diameter;
+                    rotNeeded = 18 / circumference;
+                    encoderDivingTarget = (int) (rotNeeded / 1120);
+
+                    hwmap.dcMotor_tower_left.setTargetPosition(encoderDivingTarget);
+                    hwmap.dcMotor_tower_right.setTargetPosition(encoderDivingTarget);
+
+                    UnsafeTowerDrive(-0.6, -0.6);
+
+                    telemetry.addData("Tower", "Moving Tower UP");
+                    telemetry.update();
+                } catch (Exception e) {
+                    telemetry.addData("err", e.getCause());
+                    telemetry.update();
+                }
+            }
         }
     }
 
@@ -135,11 +135,11 @@ public class DriveSystem {
         hwmap.dc_base_back_right.setPower(0);
     }
 
-//    private void UnsafeTowerDrive(double Motor_tower_left, double Motor_tower_right) {
-//        hwmap.dcMotor_tower_right.setPower(-Motor_tower_right);
-//        hwmap.dcMotor_tower_left.setPower(-Motor_tower_left);
-//
-//        hwmap.dcMotor_tower_right.setPower(0);
-//        hwmap.dcMotor_tower_left.setPower(0);
-//    }
+    private void UnsafeTowerDrive(double Motor_tower_left, double Motor_tower_right) {
+        hwmap.dcMotor_tower_right.setPower(-Motor_tower_right);
+        hwmap.dcMotor_tower_left.setPower(-Motor_tower_left);
+
+        hwmap.dcMotor_tower_right.setPower(0);
+        hwmap.dcMotor_tower_left.setPower(0);
+    }
 }
