@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.PinkCode.Subsystems;
 
-import android.sax.StartElementListener;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -27,18 +25,13 @@ public class DriveSystem {
 
     public void BaseDrive(double leftx, double lefty, double rightx) {
         double r = Math.hypot(leftx, lefty);
-        double robotAngle = Math.atan2(leftx, lefty) - Math.PI / 4;
-        double rightX = rightx;
+        double robotAngle = Math.atan2(lefty, leftx) - Math.PI / 4;
+        double localRightX = rightx;
 
-        telemetry.addData("robot Angle", robotAngle);
-        telemetry.addData("rightx", rightX);
-        telemetry.addData("r", r);
-        telemetry.update();
-
-        double v1 = r * Math.cos(robotAngle) + rightX;
-        double v2 = r * Math.sin(robotAngle) + rightX;
-        double v3 = r * Math.sin(robotAngle) - rightX;
-        double v4 = r * Math.cos(robotAngle) - rightX;
+        double v1 = r * Math.cos(robotAngle) + localRightX;
+        double v2 = r * Math.sin(robotAngle) + localRightX;
+        double v3 = r * Math.sin(robotAngle) - localRightX;
+        double v4 = r * Math.cos(robotAngle) - localRightX;
 
         telemetry.addData("v1", v1);
         telemetry.addData("v2", v2);
@@ -49,13 +42,16 @@ public class DriveSystem {
         if(leftx > .1 || leftx < -.1) {
             v1 -= v1 / 7;
             v3 -= v3 / 7;
-
-            telemetry.addData("leftx V1", v1);
-            telemetry.addData("leftx V3", v3);
-            telemetry.update();
         }
 
-        UnSafeBaseDrive(v1, v2, v3, v4);
+//        if (Subsystem.robot.scorerL_rotate.getPosition() == Presets.SCORER_SCORE_POSITION || Subsystem.robot.scorerL_rotate.getPosition() == Presets.SCORER_HIGH) {
+//            v1 *= .75;
+//            v2 *= .75;
+//            v3 *= .75;
+//            v4 *= .75;
+//        }
+
+        drive_by_command(false,-v1,-v2,-v3,-v4);
     }
 
     public void SafeTowerDrive(double tower_drive, boolean encoderDrive) {
@@ -69,6 +65,7 @@ public class DriveSystem {
             // 1120
             // if gamepad left_stick_y = -1 tower up
 
+            // not been tested
             hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -94,6 +91,7 @@ public class DriveSystem {
             // if gamepad left_stick_y = 1 tower down
             if (tower_drive == 1) {
                 try {
+                    // not been tested
                     hwmap.dcMotor_tower_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                     hwmap.dcMotor_tower_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -121,6 +119,32 @@ public class DriveSystem {
                 }
             }
         }
+    }
+
+    public void drive_by_command(boolean strafe, double rightF,double rightB, double leftF,double leftB)
+    {
+        // Define Commands
+        if(strafe)
+        {
+            hwmap.dc_base_front_right.setPower(-rightF);
+            hwmap.dc_base_back_right.setPower(rightB);
+            hwmap.dc_base_front_left.setPower(leftF);
+            hwmap.dc_base_back_left.setPower(-leftB);
+        }
+        else {
+            hwmap.dc_base_front_right.setPower(rightF);
+            hwmap.dc_base_back_right.setPower(rightB);
+            hwmap.dc_base_front_left.setPower(leftF);
+            hwmap.dc_base_back_left.setPower(leftB);
+        }
+    }
+    // Method for Stopping the Drive Train
+    public void Stop() {
+        // Define Commands
+        hwmap.dc_base_front_right.setPower(0);
+        hwmap.dc_base_back_right.setPower(0);
+        hwmap.dc_base_front_left.setPower(0);
+        hwmap.dc_base_back_left.setPower(0);
     }
 
     public void UnSafeBaseDrive(double front_right, double front_left, double back_right, double back_left) {
