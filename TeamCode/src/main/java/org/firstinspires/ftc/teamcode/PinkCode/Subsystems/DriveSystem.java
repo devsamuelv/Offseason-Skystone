@@ -24,13 +24,13 @@ public class DriveSystem {
     }
 
     public void BaseDrive(double leftx, double lefty, double rightx) {
-        double r = Math.hypot(lefty, leftx);
+        double r = Math.hypot(leftx, lefty);
         double robotAngle = Math.atan2(leftx, lefty) - Math.PI / 4;
         double localRightX = rightx;
 
         double v1 = r * Math.cos(robotAngle) + localRightX;
-        double v2 = r * Math.sin(robotAngle) + localRightX;
-        double v3 = r * Math.sin(robotAngle) - localRightX;
+        double v2 = r * Math.sin(robotAngle) - localRightX;
+        double v3 = r * Math.sin(robotAngle) + localRightX;
         double v4 = r * Math.cos(robotAngle) - localRightX;
 
         telemetry.addData("v1", v1);
